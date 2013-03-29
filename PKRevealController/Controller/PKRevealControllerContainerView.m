@@ -16,6 +16,7 @@
 
 #pragma mark - Properties
 @property (nonatomic, assign, readwrite, getter = hasShadow) BOOL shadow;
+@property (nonatomic, assign, readwrite, getter = hasRoundedCorners) BOOL roundedCorners;
 
 @end
 
@@ -30,16 +31,33 @@
 
 - (id)initForController:(UIViewController *)controller shadow:(BOOL)hasShadow
 {
-    self = [super initWithFrame:controller.view.bounds];
+    return [self initForController:controller shadow:hasShadow roundedCorners:NO];
+}
+
+- (id)initForController:(UIViewController *)controller roundedCorners:(BOOL)hasRoundedCorners
+{
+    return [self initForController:controller shadow:NO roundedCorners:hasRoundedCorners];
+}
+
+- (id)initForController:(UIViewController *)controller shadow:(BOOL)hasShadow roundedCorners:(BOOL)hasRoundedCorners
+{
+    self = [super initWithFrame:controller.view.frame];
     
     if (self != nil)
     {
         self.viewController = controller;
+        
+        if (hasRoundedCorners)
+        {
+            [self setupRoundedCorners];
+        }
+        _roundedCorners = hasRoundedCorners;
+        
         if (hasShadow)
         {
             [self setupShadow];
         }
-        self.shadow = hasShadow;
+        _shadow = hasShadow;
     }
     
     return self;
@@ -56,6 +74,13 @@
     self.layer.shadowOpacity = 0.5f;
     self.layer.shadowRadius = 2.5f;
     self.layer.shadowPath = shadowPath.CGPath;
+}
+
+- (void)setupRoundedCorners
+{
+    UIView *v = _viewController.view;
+    [v.layer setCornerRadius:4.0f];
+    [v.layer setMasksToBounds:YES];
 }
 
 #pragma mark - Layouting

@@ -21,6 +21,8 @@
 #pragma mark - Methods
 - (id)initForController:(UIViewController *)controller;
 - (id)initForController:(UIViewController *)controller shadow:(BOOL)hasShadow;
+- (id)initForController:(UIViewController *)controller roundedCorners:(BOOL)hasRoundedCorners;
+- (id)initForController:(UIViewController *)controller shadow:(BOOL)hasShadow roundedCorners:(BOOL)hasRoundedCorners;
 
 - (void)enableUserInteractionForContainedView;
 - (void)disableUserInteractionForContainedView;
@@ -28,5 +30,6 @@
 - (void)refreshShadowWithAnimationDuration:(NSTimeInterval)duration;
 
 - (BOOL)hasShadow;
+- (BOOL)hasRoundedCorners;
 
 @end
