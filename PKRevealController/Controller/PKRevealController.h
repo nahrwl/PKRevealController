@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, PKRevealControllerState)
 
 typedef NS_ENUM(NSUInteger, PKRevealControllerAnimationType)
 {
-    PKRevealControllerAnimationTypeStatic // Rear view's do not move at all.
+    PKRevealControllerAnimationTypeStatic // Rear views do not move at all.
 };
 
 typedef NS_OPTIONS(NSUInteger, PKRevealControllerType)
@@ -104,6 +104,15 @@ extern NSString * const PKRevealControllerRecognizesPanningOnFrontViewKey;
  */
 extern NSString * const PKRevealControllerRecognizesResetTapOnFrontViewKey;
 
+/*
+ * Determines whether there's a UISwipeGestureRecognizer placed on the left or right views, enabling
+ * swipe-to-return to the front view controller.
+ *
+ * @default YES
+ * @value NSNumber containing BOOL
+ */
+extern NSString * const PKRevealControllerRecognizesResetOnSwipeKey;
+
 typedef void(^PKDefaultCompletionHandler)(BOOL finished);
 typedef void(^PKDefaultErrorHandler)(NSError *error);
 
@@ -114,8 +123,9 @@ typedef void(^PKDefaultErrorHandler)(NSError *error);
 @property (nonatomic, strong, readonly) UIViewController *leftViewController;
 @property (nonatomic, strong, readonly) UIViewController *rightViewController;
 
-@property (nonatomic, strong, readonly) UIPanGestureRecognizer *revealPanGestureRecognizer;
-@property (nonatomic, strong, readonly) UITapGestureRecognizer *revealResetTapGestureRecognizer;
+@property (nonatomic, strong, readonly) UIPanGestureRecognizer      *revealPanGestureRecognizer;
+@property (nonatomic, strong, readonly) UITapGestureRecognizer      *revealResetTapGestureRecognizer;
+@property (nonatomic, strong, readonly) UISwipeGestureRecognizer    *revealResetSwipeGestureRecognizer;
 
 @property (nonatomic, assign, readonly) PKRevealControllerState state;
 @property (nonatomic, assign, readonly) BOOL isPresentationModeActive;
@@ -130,6 +140,7 @@ typedef void(^PKDefaultErrorHandler)(NSError *error);
 @property (nonatomic, assign, readwrite) BOOL disablesFrontViewInteraction;
 @property (nonatomic, assign, readwrite) BOOL recognizesPanningOnFrontView;
 @property (nonatomic, assign, readwrite) BOOL recognizesResetTapOnFrontView;
+@property (nonatomic, assign, readwrite) BOOL recognizesResetSwipeOnSideView;
 
 #pragma mark - Methods
 
