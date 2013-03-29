@@ -532,7 +532,6 @@ NSString * const PKRevealControllerRecognizesResetSwipeOnSideViewKey = @"PKRevea
     [self removeSwipeGestureRecognizerFromSideView];
     [self.revealResetSwipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
     [self.leftViewContainer addGestureRecognizer:self.revealResetSwipeGestureRecognizer];
-    NSLog(@"Added swipe to left view");
 }
 
 - (void)addSwipeGestureRecognizerToRightView
@@ -540,7 +539,7 @@ NSString * const PKRevealControllerRecognizesResetSwipeOnSideViewKey = @"PKRevea
     [self removeSwipeGestureRecognizerFromSideView];
     [self.revealResetSwipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.rightViewContainer addGestureRecognizer:self.revealResetSwipeGestureRecognizer];
-    NSLog(@"Added swipe to right view");
+
 }
 
 - (void)removeSwipeGestureRecognizerFromSideView
@@ -548,12 +547,10 @@ NSString * const PKRevealControllerRecognizesResetSwipeOnSideViewKey = @"PKRevea
     if ([[self.leftViewContainer gestureRecognizers] containsObject:self.revealResetSwipeGestureRecognizer])
     {
         [self.leftViewContainer removeGestureRecognizer:self.revealResetSwipeGestureRecognizer];
-        NSLog(@"Removed swipe from left view");
     }
     else if ([[self.rightViewContainer gestureRecognizers] containsObject:self.revealResetSwipeGestureRecognizer])
     {
         [self.rightViewContainer removeGestureRecognizer:self.revealResetSwipeGestureRecognizer];
-        NSLog(@"Removed swipe from right view");
     }
 }
 
@@ -585,26 +582,20 @@ NSString * const PKRevealControllerRecognizesResetSwipeOnSideViewKey = @"PKRevea
 
 - (void)updateResetSwipeGestureRecognizer
 {
-    NSLog(@"updateResetSwipeGestureRecognizer called");
-    NSLog(@"recognizesResetSwipeOnSideView is %@",((self.recognizesResetSwipeOnSideView)?@"TRUE":@"FALSE"));
     if (self.recognizesResetSwipeOnSideView
         && (self.state != PKRevealControllerFocusesFrontViewController))
     {
-        NSLog(@"should recognize reset swipe");
         if (self.state == PKRevealControllerFocusesLeftViewController)
         {
-            NSLog(@"should add swipe to left view");
             [self addSwipeGestureRecognizerToLeftView];
         }
         else if (self.state == PKRevealControllerFocusesRightViewController)
         {
-            NSLog(@"should add swipe to right view");
             [self addSwipeGestureRecognizerToRightView];
         }
     }
     else
     {
-        NSLog(@"will attempt to remove swipe");
         [self removeSwipeGestureRecognizerFromSideView];
     }
 }
@@ -643,7 +634,6 @@ NSString * const PKRevealControllerRecognizesResetSwipeOnSideViewKey = @"PKRevea
 
 - (void)setupSwipeGestureRecognizer
 {
-    NSLog(@"setup swipe called");
     SEL swipeRecognitionCallback = @selector(didRecognizeSwipeWithGestureRecognizer:);
     self.revealResetSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
                                                                                    action:swipeRecognitionCallback];
